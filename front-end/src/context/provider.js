@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Context from './context';
 
 export default function Provider({ children }) {
-  // const contextValue = {};
+  const contextValue = {};
 
   return <Context.Provider value={ contextValue }>{children}</Context.Provider>;
 }
