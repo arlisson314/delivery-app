@@ -16,7 +16,9 @@ const login = async ({ email, password }) => {
   if (!validatePass) return buildError(404, 'Invalid password');
 
   const token = jwt.sign({ data: user }, secret, { expiresIn: '7d', algorithm: 'HS256' });
-  return token;
+  delete user.password;
+  user.token = token;
+  return user;
 };
 
 const createUser = async ({ name, email, password }) => {
