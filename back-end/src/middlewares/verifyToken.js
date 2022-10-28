@@ -1,0 +1,19 @@
+const jwt = require('jsonwebtoken');
+const fs = require('fs').promises;
+
+const JWT_SECRET = async () => fs.readFile('./jwt.evaluation.key', 'utf-8');
+
+module.exports = async (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+  try {
+    const jwtSecret = await JWT_SECRET();
+    const decodedToken = jwt.verify(token, jwtSecret);
+    req.user = decodedToken;
+    return next();
+  } catch (error) {
+    res.status(401).json({ message: 'Expired or invalid token' });
+  }
+};
