@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { post } from '../helpers/requests';
 
 export default function Login() {
+  const navigate = useNavigate();
   const [disabled, setDisebled] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -10,6 +13,19 @@ export default function Login() {
     const regex = /^.*@.*\.com$/;
     setDisebled(!(password.length >= MIN_DIG && email.match(regex)));
   }, [email, password]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      await post('/login', { email, password });
+
+      navigate('/customer/products');
+    } catch ({ response }) {
+      const { status, data } = response;
+      console.log(`${status} - ${data.message}`);
+    }
+  };
 
   return (
     <div>
@@ -39,6 +55,7 @@ export default function Login() {
           type="submit"
           data-testid="common_login__button-login"
           disabled={ disabled }
+          onClick={ handleSubmit }
         >
           LOGIN
         </button>
@@ -47,6 +64,7 @@ export default function Login() {
           type="submit"
           id="register-button"
           data-testid="common_login__button-register"
+          onClick={ () => navigate('/register') }
         >
           Ainda não tenho conta
         </button>
