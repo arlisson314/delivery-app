@@ -7,6 +7,7 @@ export default function Login() {
   const [disabled, setDisabled] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const MIN_DIG = 6;
@@ -23,7 +24,7 @@ export default function Login() {
       navigate('/customer/products');
     } catch ({ response }) {
       const { status, data } = response;
-      console.log(`${status} - ${data.message}`);
+      setErrorMessage(`${status} - ${data.message}`);
     }
   };
 
@@ -69,7 +70,9 @@ export default function Login() {
           Ainda não tenho conta
         </button>
       </form>
-      <div data-testid="common_login__element-invalid-email" />
+      {errorMessage && (
+        <p data-testid="common_login__element-invalid-email">{errorMessage}</p>
+      )}
     </div>
   );
 }
