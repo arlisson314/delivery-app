@@ -13,12 +13,17 @@ module.exports = {
     },
     {
       sale_id: 2,
-      product_id: 1,
+      product_id: 4,
       quantity: 8,
     },
     {
       sale_id: 3,
-      product_id: 2,
+      product_id: 7,
+      quantity: 3,
+    },
+    {
+      sale_id: 5,
+      product_id: 8,
       quantity: 5,
     },
     ], { timestamps: false });

@@ -3,8 +3,8 @@ module.exports = {
     await queryInterface.bulkInsert('sales',
     [{
       id: 1,
-      user_id: 1,
-      seller_id: 3,
+      user_id: 3,
+      seller_id: 2,
       total_price: 34.90,
       delivery_address: 'Rua Marechal',
       delivery_number: '256',
@@ -13,7 +13,7 @@ module.exports = {
     },
     {
       id: 2,
-      user_id: 5,
+      user_id: 3,
       seller_id: 2,
       total_price: 26.25,
       delivery_address: 'Rua Theodoro',
@@ -23,8 +23,8 @@ module.exports = {
     }, 
     {
       id: 3,
-      user_id: 5,
-      seller_id: 3,
+      user_id: 3,
+      seller_id: 2,
       total_price: 75.30,
       delivery_address: 'Rua Olavo',
       delivery_number: '134',
@@ -33,7 +33,7 @@ module.exports = {
     }, 
     {
       id: 4,
-      user_id: 1,
+      user_id: 3,
       seller_id: 2,
       total_price: 98.45,
       delivery_address: 'Rua Ernesto',
@@ -43,7 +43,7 @@ module.exports = {
     },
     {
       id: 5,
-      user_id: 1,
+      user_id: 3,
       seller_id: 2,
       total_price: 125.25,
       delivery_address: 'Rua Marilia',
