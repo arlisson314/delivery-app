@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
-const fs = require('fs').promises;
+require('dotenv/config');
 
-const JWT_SECRET = async () => fs.readFile('./jwt.evaluation.key', 'utf-8');
+const jwtSecret = process.env.JWT_SECRET;
 
 module.exports = async (req, res, next) => {
   const token = req.headers.authorization;
@@ -9,7 +9,6 @@ module.exports = async (req, res, next) => {
     return res.status(401).json({ message: 'Token not found' });
   }
   try {
-    const jwtSecret = await JWT_SECRET();
     const decodedToken = jwt.verify(token, jwtSecret);
     req.user = decodedToken;
     return next();
