@@ -16,8 +16,8 @@ export default function RegisterComponent() {
       const minNameLength = 12;
       const minPasswordLength = 6;
       const validation = !(emailRegex.test(email)
-      && name.length > minNameLength
-      && password.length > minPasswordLength);
+      && name.length >= minNameLength
+      && password.length >= minPasswordLength);
 
       setIsBtnDisabled(validation);
     };

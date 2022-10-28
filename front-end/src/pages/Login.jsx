@@ -4,14 +4,14 @@ import { post } from '../helpers/requests';
 
 export default function Login() {
   const navigate = useNavigate();
-  const [disabled, setDisebled] = useState(true);
+  const [disabled, setDisabled] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   useEffect(() => {
     const MIN_DIG = 6;
-    const regex = /^.*@.*\.com$/;
-    setDisebled(!(password.length >= MIN_DIG && email.match(regex)));
+    const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    setDisabled(!(password.length >= MIN_DIG && email.match(regex)));
   }, [email, password]);
 
   const handleSubmit = async (event) => {
