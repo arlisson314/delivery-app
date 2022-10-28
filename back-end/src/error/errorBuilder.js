@@ -1,7 +1,3 @@
-const buildError = (code, message) => {
-  const newError = new Error(message);
-  newError.status = code;
-  throw newError;
-};
+const buildError = (status, message) => ({ status, message });
 
-module.exports = { buildError };
+module.exports = buildError;

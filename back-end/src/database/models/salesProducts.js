@@ -9,12 +9,12 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'saleProducts',
   });
 
-  SaleProducts.associate = (models) => {
-    SaleProducts.belongsTo(models.Products,
-      { foreignKey: 'product_id', as: 'products' });
-    SaleProducts.belongsTo(models.Sale,
-      { foreignKey: 'sale_id', as: 'sales'});
-  };
+  // SaleProducts.associate = (models) => {
+  //   SaleProducts.belongsToMany(models.Products,
+  //     { foreignKey: 'product_id', as: 'products' });
+  //   SaleProducts.belongsToMany(models.Sale,
+  //     { foreignKey: 'sale_id', as: 'sales'});
+  // };
 
   return SaleProducts;
 };
