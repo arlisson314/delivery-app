@@ -1,14 +1,20 @@
+import { useNavigate } from 'react-router-dom';
+
 export default function Header() {
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <nav>
       <button
         type="submit"
+        onClick={ () => navigate('/customer/products') }
       >
         PRODUTOS
       </button>
 
       <button
         type="submit"
+        onClick={ () => navigate('/customer/checkout') }
       >
         MEUS PEDIDOS
       </button>
@@ -17,9 +23,10 @@ export default function Header() {
 
       <button
         type="submit"
+        onClick={ () => navigate('/login') }
       >
         SAIR
       </button>
-    </div>
+    </nav>
   );
 }

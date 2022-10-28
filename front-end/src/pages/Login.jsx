@@ -31,7 +31,7 @@ export default function Login() {
             type="password"
             name="input-password"
             data-testid="common_login__input-password"
-            id="input-login"
+            id="input-password"
             onChange={ ({ target: { value } }) => setPassword(value) }
           />
         </label>
