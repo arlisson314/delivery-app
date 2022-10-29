@@ -7,12 +7,20 @@ export default function Checkout() {
       <Header />
       <p>Finalizar Pedido</p>
       <Table />
-      <h3>Total: R$ 28,46</h3>
+      <h3
+        data-testid="customer_checkout__element-order-total-price"
+      >
+        Total: R$ 28,46
+      </h3>
       <p>Detalhes e Endereço para Entrega</p>
       <form>
-        <label htmlFor="Vendedora">
+        <label htmlFor="vendedora">
           P. Vendedora Responsável:
-          <select id="Vendedora">
+          <select
+            id="vendedora"
+            name="vendedora"
+            data-testid="customer_checkout__select-seller"
+          >
             <option>
               Fulana Pereira
             </option>
@@ -26,7 +34,9 @@ export default function Checkout() {
           Endereço
           <input
             type="text"
+            id="endereco"
             name="endereco"
+            data-testid="customer_checkout__input-address"
           />
         </label>
 
@@ -36,11 +46,13 @@ export default function Checkout() {
             type="text"
             name="endereço"
             id="endereço"
+            data-testid="customer_checkout__input-address-number"
           />
         </label>
 
         <button
-          type="button"
+          type="submit"
+          data-testid="customer_checkout__button-submit-order"
         >
           FINALIZAR PEDIDO
         </button>
