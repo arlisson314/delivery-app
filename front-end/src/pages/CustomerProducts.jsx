@@ -11,7 +11,7 @@ export default function CustomerProducts() {
 
   useEffect(() => {
     const fetchInfos = async () => {
-      const { results } = get('/products');
+      const { results } = get('/customer/products');
       setProducts(results);
     };
     fetchInfos();
