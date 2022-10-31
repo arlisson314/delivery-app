@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { post } from '../helpers/requests';
+import GenericBtn from '../components/genericBtn';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -80,14 +81,13 @@ export default function Register() {
           />
         </label>
 
-        <button
+        <GenericBtn
           type="submit"
-          data-testid="common_register__button-register"
+          dataTestId="common_register__button-register"
           disabled={ isBtnDisabled }
           onClick={ handleSubmit }
-        >
-          Cadastrar
-        </button>
+          name="Cadastrar"
+        />
 
         {errorMessage && (
           <p data-testid="common_register__element-invalid_register">
