@@ -7,6 +7,7 @@ export default function genericBtn({ type, name, dataTestId, onClick, disabled }
       name={ name }
       data-testid={ dataTestId }
       onClick={ onClick }
+      disabled={ disabled }
     >
       { name }
     </button>
