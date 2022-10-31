@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
-const { Sale } = require('../database/models/sales');
-const { SaleProducts } = require('../database/models/salesProducts');
+const { Sale } = require('../database/models');
+const { SaleProducts } = require('../database/models');
 const buildError = require('../error/errorBuilder');
 const config = require('../database/config/config');
 

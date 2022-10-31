@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     saleDate: { 
       type: DataTypes.DATE,
       get: function() {
-        return this.getDataValue('sale_date')
+        return this.getDataValue('saleDate')
           .toLocaleString('en-GB', { timeZone: 'UTC' });
       },
       defaultValue: sequelize.fn('NOW') },
@@ -22,11 +22,11 @@ module.exports = (sequelize, DataTypes) => {
 
   Sale.associate = (models) => {
     Sale.belongsTo(models.User,
-      { foreignKey: 'user_id', as: 'user' }, { foreignKey: 'seller_id', as: 'seller' } );
+      { foreignKey: 'userId', as: 'user' }, { foreignKey: 'sellerId', as: 'seller' } );
   };
   Sale.associate = (models) => {
     Sale.hasMany(models.SaleProducts,
-      { foreignKey: 'sale_id', as: 'sales' });
+      { foreignKey: 'saleId', as: 'sales' });
   };
 
   return Sale;

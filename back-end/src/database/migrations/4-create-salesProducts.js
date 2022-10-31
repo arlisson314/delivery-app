@@ -6,7 +6,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
-        field: 'sale_id',
         references: {
           model: 'sales',
           key: 'id',
@@ -16,7 +15,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
-        field: 'product_id',
         references: {
           model: 'products',
           key: 'id',
