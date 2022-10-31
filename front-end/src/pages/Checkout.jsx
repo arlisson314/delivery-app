@@ -1,17 +1,18 @@
+import { useState, useEffect } from 'react';
 import Header from '../components/header';
 import Table from '../components/table';
 
 export default function Checkout() {
+  const [vend, setVend] = useState([]);
+  useEffect(() => {
+    const pessoaMock = ['Fulana Pereira', 'Cicrana Sousa', 'Beltrno de Jesus'];
+    setVend(pessoaMock);
+  }, []);
   return (
     <div>
       <Header />
       <p>Finalizar Pedido</p>
       <Table />
-      <h3
-        data-testid="customer_checkout__element-order-total-price"
-      >
-        Total: R$ 28,46
-      </h3>
       <p>Detalhes e Endereço para Entrega</p>
       <form>
         <label htmlFor="vendedora">
@@ -21,12 +22,7 @@ export default function Checkout() {
             name="vendedora"
             data-testid="customer_checkout__select-seller"
           >
-            <option>
-              Fulana Pereira
-            </option>
-            <option>
-              Cicrana Sousa
-            </option>
+            {vend.map((pessoa, index) => (<option key={ index }>{pessoa}</option>))}
           </select>
         </label>
 
