@@ -1,24 +1,28 @@
+import { useState, useEffect } from 'react';
 import Header from '../components/header';
 import Table from '../components/table';
 
 export default function Checkout() {
+  const [vend, setVend] = useState([]);
+  useEffect(() => {
+    const pessoaMock = ['Fulana Pereira', 'Cicrana Sousa', 'Beltrno de Jesus'];
+    setVend(pessoaMock);
+  }, []);
   return (
     <div>
       <Header />
       <p>Finalizar Pedido</p>
       <Table />
-      <h3>Total: R$ 28,46</h3>
       <p>Detalhes e Endereço para Entrega</p>
       <form>
-        <label htmlFor="Vendedora">
+        <label htmlFor="vendedora">
           P. Vendedora Responsável:
-          <select id="Vendedora">
-            <option>
-              Fulana Pereira
-            </option>
-            <option>
-              Cicrana Sousa
-            </option>
+          <select
+            id="vendedora"
+            name="vendedora"
+            data-testid="customer_checkout__select-seller"
+          >
+            {vend.map((pessoa, index) => (<option key={ index }>{pessoa}</option>))}
           </select>
         </label>
 
@@ -26,7 +30,9 @@ export default function Checkout() {
           Endereço
           <input
             type="text"
+            id="endereco"
             name="endereco"
+            data-testid="customer_checkout__input-address"
           />
         </label>
 
@@ -36,11 +42,13 @@ export default function Checkout() {
             type="text"
             name="endereço"
             id="endereço"
+            data-testid="customer_checkout__input-address-number"
           />
         </label>
 
         <button
-          type="button"
+          type="submit"
+          data-testid="customer_checkout__button-submit-order"
         >
           FINALIZAR PEDIDO
         </button>
