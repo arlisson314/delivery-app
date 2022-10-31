@@ -26,8 +26,8 @@ const getById = async (orderId) => {
 
 const create = async (newSale) => {
   const transaction = await sequelize.transaction();
-
-  const createdSale = await Sale.create({ newSale }, { transaction });
+  
+  const createdSale = await Sale.create(newSale, { transaction });
   
   const { products } = newSale;
   const saleProducts = products.map((item) => ({
