@@ -33,4 +33,9 @@ const createUser = async ({ name, email, password }) => {
   return newUser;
 };
 
-module.exports = { login, createUser };
+const getAll = async () => {
+  const result = await User.findAll({ attributes: { exclude: ['password'] } });
+  return result;
+};
+
+module.exports = { login, createUser, getAll };
