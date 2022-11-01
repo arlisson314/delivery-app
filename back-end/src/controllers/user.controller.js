@@ -6,8 +6,8 @@ const login = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  await userServices.createUser(req.body);
-  return res.status(201).json({ message: 'Created' });
+  const result = await userServices.createUser(req.body);
+  return res.status(201).json(result);
 };
 
 module.exports = { login, create };
