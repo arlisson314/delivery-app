@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../components/products/ProductCard';
-// import { get } from '../helpers/requests';
 
 export default function CustomerProducts() {
   const [orders, setOrders] = useState([]);
@@ -20,11 +19,6 @@ export default function CustomerProducts() {
       setProducts(fetchItems);
     };
     fetchProducts();
-    // const fetchInfos = async () => {
-    //   const { results } = get('/customer/products');
-    //   setProducts(results);
-    // };
-    // fetchInfos();
   }, []);
 
   useEffect(() => {}, [totalValue]);
@@ -46,7 +40,6 @@ export default function CustomerProducts() {
         <ProductCard
           key={ index }
           data={ product }
-          index={ index }
           addProduct={ addProduct }
         />
       ))}
