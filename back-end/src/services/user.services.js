@@ -9,10 +9,10 @@ const jwtSecret = process.env.JWT_SECRET;
 
 const login = async ({ email, password }) => {
   const user = await User.findOne({ where: { email } });
-  if (!user) throw buildError(404, 'Invalid email');
+  if (!user) throw buildError(404, 'Not found');
   
   const validatePass = md5(password) === user.password;
-  if (!validatePass) throw buildError(404, 'Invalid password');
+  if (!validatePass) throw buildError(404, 'Not found');
   
   const token = jwt.sign({ data: user }, jwtSecret, { expiresIn: '7d', algorithm: 'HS256' });
   delete user.dataValues.password;

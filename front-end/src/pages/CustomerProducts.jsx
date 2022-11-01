@@ -1,7 +1,8 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../components/products/ProductCard';
-import { get } from '../helpers/requests';
+// import { get } from '../helpers/requests';
 
 export default function CustomerProducts() {
   const [orders, setOrders] = useState([]);
@@ -10,12 +11,21 @@ export default function CustomerProducts() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchInfos = async () => {
-      const { results } = get('/customer/products');
-      setProducts(results);
+    const userInfos = JSON.parse(localStorage.getItem('user'));
+
+    const fetchProducts = async () => {
+      const fetchItems = await axios
+        .get('http://localhost:3001/customer/products', { headers: { Authorization: userInfos.token } })
+        .then((res) => res.data);
+      setProducts(fetchItems);
     };
-    fetchInfos();
-  }, [products]);
+    fetchProducts();
+    // const fetchInfos = async () => {
+    //   const { results } = get('/customer/products');
+    //   setProducts(results);
+    // };
+    // fetchInfos();
+  }, []);
 
   useEffect(() => {}, [totalValue]);
 

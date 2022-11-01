@@ -17,7 +17,7 @@ export default function ProductCard({ index, data, addProduct }) {
       <h2
         data-testid={ `customer_products__element-card-price-${index}` }
       >
-        { `R$${price.toFixed(2).replace('.', ',')}` || 'R$0,00' }
+        { `R$${price}` || 'R$0,00' }
       </h2>
       <img
         src={ urlImage }
@@ -63,7 +63,7 @@ ProductCard.propTypes = {
   data: PropTypes.shape({
     urlImage: PropTypes.string,
     name: PropTypes.string,
-    price: PropTypes.number,
+    price: PropTypes.string,
   }).isRequired,
   addProduct: PropTypes.func.isRequired,
 };
