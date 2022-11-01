@@ -22,6 +22,7 @@ export default function CustomerProducts() {
   const addProduct = (i, qnt) => {
     orders[i] = products[i];
     orders[i].qnt = qnt;
+    orders[i].id = i;
     setOrders(orders);
     localStorage.setItem('carrinho', JSON.stringify(orders));
     const value = orders.reduce((acc, cur) => acc + cur.price * cur.qnt, 0);
