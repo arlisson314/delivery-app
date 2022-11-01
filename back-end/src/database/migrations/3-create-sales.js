@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -16,7 +16,7 @@ module.exports = {
           key: 'id',
         },
       },
-      seller_id: {
+      sellerId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -24,19 +24,19 @@ module.exports = {
           key: 'id',
         },
       },
-      total_price: {
+      totalPrice: {
         type: Sequelize.DECIMAL(9,2),
         allowNull: false,
       },
-      delivery_address: {
+      deliveryAddress: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      delivery_number: {
+      deliveryNumber: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      sale_date: {
+      saleDate: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.fn('NOW'),
