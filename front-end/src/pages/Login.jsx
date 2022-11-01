@@ -4,26 +4,27 @@ import { post } from '../helpers/requests';
 
 export default function Login() {
   const navigate = useNavigate();
-  const [disabled, setDisebled] = useState(true);
+  const [disabled, setDisabled] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const MIN_DIG = 6;
-    const regex = /^.*@.*\.com$/;
-    setDisebled(!(password.length >= MIN_DIG && email.match(regex)));
+    const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    setDisabled(!(password.length >= MIN_DIG && email.match(regex)));
   }, [email, password]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      await post('/login', { email, password });
-
+      const result = await post('/login', { email, password });
+      localStorage.setItem('user', JSON.stringify(result));
       navigate('/customer/products');
     } catch ({ response }) {
       const { status, data } = response;
-      console.log(`${status} - ${data.message}`);
+      setErrorMessage(`${status} - ${data.message}`);
     }
   };
 
@@ -69,7 +70,9 @@ export default function Login() {
           Ainda não tenho conta
         </button>
       </form>
-      <div data-testid="common_login__element-invalid-email" />
+      {errorMessage && (
+        <p data-testid="common_login__element-invalid-email">{errorMessage}</p>
+      )}
     </div>
   );
 }
