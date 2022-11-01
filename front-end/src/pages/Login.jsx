@@ -19,8 +19,8 @@ export default function Login() {
     event.preventDefault();
 
     try {
-      await post('/login', { email, password });
-
+      const result = await post('/login', { email, password });
+      localStorage.setItem('user', JSON.stringify(result));
       navigate('/customer/products');
     } catch ({ response }) {
       const { status, data } = response;
