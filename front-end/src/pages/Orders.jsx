@@ -7,20 +7,16 @@ export default function Orders() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    // const user = JSON.parse(localStorage.getItem('user'));
 
     axios
       .get('http://localhost:3001/orders', {
-        headers: {
-          Authorization: user.token,
-        },
-        body: {
-          userId: user.id,
-          role: user.role,
-        },
-      }).then((response) => {
+        params: { userId: 3, role: 'customer' },
+      })
+      .then((response) => {
         setOrders(response.data);
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.log(error);
       });
   }, []);
