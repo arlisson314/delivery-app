@@ -1,42 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function Table() {
-  const [listItens, setListItens] = useState([]);
+export default function Table({ listItens, setListItens }) {
   const [path, setPath] = useState('');
   const location = useLocation();
-
   useEffect(() => {
-    // const itensMock = [
-    //   {
-    //     id: '1',
-    //     descrição: 'Cerveja Stella 250ml',
-    //     quantidade: '3',
-    //     valor_unitário: '3,50',
-    //     sub_total: '10,50',
-    //   },
-    //   {
-    //     id: '2',
-    //     descrição: 'Cerveja Skol Latão 450ml',
-    //     quantidade: '4',
-    //     valor_unitário: '4,10',
-    //     sub_total: '16,40',
-    //   },
-    //   {
-    //     id: '3',
-    //     descrição: 'Salgadinho Torcida Churrasco',
-    //     quantidade: '1',
-    //     valor_unitário: '1,56',
-    //     sub_total: '1,56',
-    //   },
-    // ];
-    // setListItens(itensMock);
     setPath(location.pathname
       .includes('checkout') ? 'customer_checkout' : 'customer_order_details');
   }, [location.pathname]);
-
-  // console.log(path);
-  // console.log(location);
 
   const removeButton = (id) => {
     const newList = listItens.filter((item) => item.id !== id);
@@ -121,6 +93,11 @@ export default function Table() {
     </div>
   );
 }
+
+Table.propTypes = ({
+  listItens: PropTypes.array,
+  setListItens: PropTypes.func,
+}).isRequired;
 
 // customer_checkout__element-order-table-name-<index>
 // customer_order_details__element-order-table-name-<index>
