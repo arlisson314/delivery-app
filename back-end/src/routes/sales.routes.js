@@ -4,7 +4,7 @@ const verifyToken = require('../middlewares/verifyToken');
 
 const salesRouter = Router();
 
-salesRouter.get('/orders', salesController.getAll);
+salesRouter.get("/orders", verifyToken, salesController.getAll);
 salesRouter.get('/orders/:id', verifyToken, salesController.getById);
 salesRouter.post('/orders', verifyToken, salesController.create);
 
