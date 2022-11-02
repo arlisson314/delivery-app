@@ -2,28 +2,28 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('salesProducts',
     [{
-      saleId: 1,
-      productId: 1,
+      sale_id: 1,
+      product_id: 1,
       quantity: 4,
     }, 
     {
-      saleId: 2,
-      productId: 3,
+      sale_id: 2,
+      product_id: 3,
       quantity: 12,
     },
     {
-      saleId: 2,
-      productId: 4,
+      sale_id: 2,
+      product_id: 4,
       quantity: 8,
     },
     {
-      saleId: 3,
-      productId: 7,
+      sale_id: 3,
+      product_id: 7,
       quantity: 3,
     },
     {
-      saleId: 5,
-      productId: 8,
+      sale_id: 5,
+      product_id: 8,
       quantity: 5,
     },
     ], { timestamps: false });

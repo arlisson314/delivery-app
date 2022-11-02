@@ -21,4 +21,9 @@ export const getAll = async (endpoint) => {
 //   return data;
 // };
 
+export const get = async (endpoint, body) => {
+  const { data } = await instace.get(endpoint, body);
+  return data;
+};
+
 export default instace;
