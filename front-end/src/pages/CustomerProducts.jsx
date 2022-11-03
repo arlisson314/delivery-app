@@ -20,7 +20,6 @@ export default function CustomerProducts() {
         })
         .then((res) => res.data)
         .catch((err) => console.log(err));
-      console.log(fetchItems);
       setProducts(fetchItems);
     };
     fetchProducts();
@@ -33,7 +32,6 @@ export default function CustomerProducts() {
     orders[i].qnt = qnt;
     orders[i].id = i;
     setOrders(orders);
-    console.log(orders[i]);
     localStorage.setItem('carrinho', JSON.stringify(orders));
     const value = orders.reduce((acc, cur) => acc + Number(cur.price) * cur.qnt, 0);
     setTotalValue(value.toFixed(2).replace('.', ','));
