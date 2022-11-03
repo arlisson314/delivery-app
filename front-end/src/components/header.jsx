@@ -31,16 +31,17 @@ export default function Header() {
         MEUS PEDIDOS
       </button>
 
-      <p
-        data-testid="customer_products__element-navbar-user-full-name"
-      >
+      <p data-testid="customer_products__element-navbar-user-full-name">
         {user?.name}
       </p>
 
       <button
         data-testid="customer_products__element-navbar-link-logout"
         type="submit"
-        onClick={ () => navigate('/login') }
+        onClick={ () => {
+          navigate('/login');
+          localStorage.removeItem('user');
+        } }
       >
         SAIR
       </button>

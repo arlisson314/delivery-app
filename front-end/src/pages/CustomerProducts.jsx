@@ -15,8 +15,11 @@ export default function CustomerProducts() {
 
     const fetchProducts = async () => {
       const fetchItems = await axios
-        .get('http://localhost:3001/customer/products', { headers: { Authorization: userInfos.token } })
-        .then((res) => res.data).catch((err) => console.log(err));
+        .get('http://localhost:3001/customer/products', {
+          headers: { Authorization: userInfos.token },
+        })
+        .then((res) => res.data)
+        .catch((err) => console.log(err));
       setProducts(fetchItems);
     };
     fetchProducts();
@@ -25,12 +28,12 @@ export default function CustomerProducts() {
   useEffect(() => {}, [totalValue]);
 
   const addProduct = (i, qnt) => {
-    orders[i] = products[i];
+    orders[i] = products[i - 1];
     orders[i].qnt = qnt;
     orders[i].id = i;
     setOrders(orders);
     localStorage.setItem('carrinho', JSON.stringify(orders));
-    const value = orders.reduce((acc, cur) => acc + cur.price * cur.qnt, 0);
+    const value = orders.reduce((acc, cur) => acc + Number(cur.price) * cur.qnt, 0);
     setTotalValue(value.toFixed(2).replace('.', ','));
   };
 
