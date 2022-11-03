@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Header from '../header';
 
 export default function ProductCard({ data, addProduct }) {
   const [count, setCount] = useState(0);
@@ -15,7 +14,6 @@ export default function ProductCard({ data, addProduct }) {
 
   return (
     <div>
-      <Header />
       <h2
         data-testid={ `customer_products__element-card-price-${id}` }
       >

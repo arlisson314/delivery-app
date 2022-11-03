@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../components/products/ProductCard';
+import Header from '../components/header';
 
 export default function CustomerProducts() {
   const [orders, setOrders] = useState([]);
@@ -35,7 +36,7 @@ export default function CustomerProducts() {
 
   return (
     <div>
-      <h1>Produtos</h1>
+      <Header />
       {products?.map((product, index) => (
         <ProductCard
           key={ index }
