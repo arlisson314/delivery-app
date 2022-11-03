@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 export default function Table({ listItens, setListItens }) {
   const [path, setPath] = useState('');
   const location = useLocation();
+
   useEffect(() => {
     setPath(location.pathname
       .includes('checkout') ? 'customer_checkout' : 'customer_order_details');

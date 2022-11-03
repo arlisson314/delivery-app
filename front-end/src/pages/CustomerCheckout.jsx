@@ -6,13 +6,9 @@ import { getAll } from '../helpers/requests';
 
 export default function CustomerCheckout() {
   const [listItens, setListItens] = useState([]);
-  const [Users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
   const navigate = useNavigate();
-
-  // const [UserData, setUserData] = useState({});
-  // const getUserDb = getAll('/orders')
-  // .then((respnose) => setUsers(respnose))
-  // .catch((err) => console.error(err));
+  const [userData, setUserData] = useState('');
 
   useEffect(() => {
     const itensMock = [
@@ -37,7 +33,6 @@ export default function CustomerCheckout() {
       .then((respnose) => setUsers(respnose.filter((user) => user.role === 'seller')))
       .catch((err) => console.error(err));
   }, []);
-  console.log(Users);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -57,8 +52,10 @@ export default function CustomerCheckout() {
             id="vendedora"
             name="vendedora"
             data-testid="customer_checkout__select-seller"
+            value={ userData }
+            onChange={ ({ target: { value } }) => setUserData(value) }
           >
-            {Users?.map(({ id, name }) => (
+            {users?.map(({ id, name }) => (
               <option
                 key={ id }
                 value={ id }
