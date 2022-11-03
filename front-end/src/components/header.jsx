@@ -40,7 +40,7 @@ export default function Header() {
         type="submit"
         onClick={ () => {
           navigate('/login');
-          localStorage.clear();
+          localStorage.removeItem('user');
         } }
       >
         SAIR
