@@ -8,7 +8,6 @@ export default function Orders() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
 
     axios
       .get('http://localhost:3001/orders', {
