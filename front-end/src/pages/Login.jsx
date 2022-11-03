@@ -1,6 +1,7 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { post } from '../helpers/requests';
+// import { post } from '../helpers/requests';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -19,7 +20,8 @@ export default function Login() {
     event.preventDefault();
 
     try {
-      const result = await post('/login', { email, password });
+      const result = await axios.post('http://localhost:3001/login').then((res) => res.data);
+      // const result = await post('/login', { email, password });
       localStorage.setItem('user', JSON.stringify(result));
       navigate('/customer/products');
     } catch ({ response }) {
