@@ -14,10 +14,11 @@ export default function ProductCard({ data, addProduct }) {
 
   return (
     <div>
-      <h2
-        data-testid={ `customer_products__element-card-price-${id}` }
-      >
-        { `R$${price}` || 'R$0,00' }
+      <h3 data-testid={ `customer_products__element-card-title-${id}` }>
+        {name}
+      </h3>
+      <h2 data-testid={ `customer_products__element-card-price-${id}` }>
+        {`R$${price.replace('.', ',')}` || 'R$0,00'}
       </h2>
       <img
         src={ urlImage }
@@ -25,11 +26,6 @@ export default function ProductCard({ data, addProduct }) {
         style={ { width: '200px' } }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
       />
-      <h3
-        data-testid={ `customer_products__element-card-title-${id}` }
-      >
-        { name }
-      </h3>
       <div id="product-increase">
         <button
           type="submit"
