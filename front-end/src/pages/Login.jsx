@@ -20,7 +20,7 @@ export default function Login() {
     event.preventDefault();
 
     try {
-      const result = await axios.post('http://localhost:3001/login', { body: { email, password } }).then((res) => res.data);
+      const result = await axios.post('http://localhost:3001/login', { email, password }).then((res) => res.data);
       // const result = await post('/login', { email, password });
       localStorage.setItem('user', JSON.stringify(result));
       navigate('/customer/products');
