@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/header';
 import Table from '../components/table';
 
 export default function Checkout() {
+  const navigate = useNavigate();
   const [vend, setVend] = useState([]);
   useEffect(() => {
     const pessoaMock = ['Fulana Pereira', 'Cicrana Sousa', 'Beltrno de Jesus'];
@@ -49,6 +51,7 @@ export default function Checkout() {
         <button
           type="submit"
           data-testid="customer_checkout__button-submit-order"
+          onClick={ () => navigate('/customer/orders') }
         >
           FINALIZAR PEDIDO
         </button>
