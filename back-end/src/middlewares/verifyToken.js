@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
-require('dotenv/config');
+const fs = require('fs');
+require('express-async-errors');
 
-const jwtSecret = process.env.JWT_SECRET;
+const jwtSecret = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
 
 module.exports = async (req, res, next) => {
   const token = req.headers.authorization;
