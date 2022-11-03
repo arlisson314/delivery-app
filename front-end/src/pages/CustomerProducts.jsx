@@ -38,20 +38,19 @@ export default function CustomerProducts() {
     <div>
       <Header />
       {products?.map((product, index) => (
-        <ProductCard
-          key={ index }
-          data={ product }
-          addProduct={ addProduct }
-        />
+        <ProductCard key={ index } data={ product } addProduct={ addProduct } />
       ))}
       <button
         type="submit"
         data-testid="customer_products__button-cart"
         onClick={ () => navigate('/customer/checkout') }
+        disabled={ totalValue === '0,00' }
       >
-        <div data-testid="customer_products__checkout-bottom-value">
+        <div>
           Ver Carrinho: R$
-          { totalValue }
+          <span data-testid="customer_products__checkout-bottom-value">
+            {totalValue}
+          </span>
         </div>
       </button>
     </div>
