@@ -9,7 +9,6 @@ const sequelize = new Sequelize(config.development);
 const getAll = async (userId, role) => {
   if (!userId || !role) throw buildError(409, 'Invalid id or role');
   if (role === 'customer') {
-    console.log('entrou no customer');
     const result = await Sale.findAll({ where: { userId } });
     return result;
   }
