@@ -15,7 +15,7 @@ export default function CustomerProducts() {
     const fetchProducts = async () => {
       const fetchItems = await axios
         .get('http://localhost:3001/customer/products', { headers: { Authorization: userInfos.token } })
-        .then((res) => res.data);
+        .then((res) => res.data).catch((err) => console.log(err));
       setProducts(fetchItems);
     };
     fetchProducts();
