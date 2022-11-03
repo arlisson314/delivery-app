@@ -1,7 +1,17 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
   const navigate = useNavigate();
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    const userInfos = JSON.parse(localStorage.getItem('user'));
+    if (!userInfos) {
+      navigate('/login');
+    }
+    setUser(userInfos);
+  }, [navigate]);
 
   return (
     <nav>
@@ -24,7 +34,7 @@ export default function Header() {
       <p
         data-testid="customer_products__element-navbar-user-full-name"
       >
-        USUARIO
+        {user?.name}
       </p>
 
       <button
