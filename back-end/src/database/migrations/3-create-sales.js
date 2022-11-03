@@ -17,7 +17,7 @@ module.exports = {
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
-        field: 'user_id'
+        field: 'user_id',
       },
       sellerId: {
         type: Sequelize.INTEGER,
@@ -29,7 +29,7 @@ module.exports = {
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
-        field: 'seller_id'
+        field: 'seller_id',
       },
       totalPrice: {
         type: Sequelize.DECIMAL(9,2),

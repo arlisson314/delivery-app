@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../components/products/ProductCard';
+import Header from '../components/header';
 
 export default function CustomerProducts() {
   const [orders, setOrders] = useState([]);
@@ -15,7 +16,7 @@ export default function CustomerProducts() {
     const fetchProducts = async () => {
       const fetchItems = await axios
         .get('http://localhost:3001/customer/products', { headers: { Authorization: userInfos.token } })
-        .then((res) => res.data);
+        .then((res) => res.data).catch((err) => console.log(err));
       setProducts(fetchItems);
     };
     fetchProducts();
@@ -35,7 +36,7 @@ export default function CustomerProducts() {
 
   return (
     <div>
-      <h1>Produtos</h1>
+      <Header />
       {products?.map((product, index) => (
         <ProductCard
           key={ index }

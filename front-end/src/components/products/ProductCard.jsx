@@ -60,7 +60,7 @@ export default function ProductCard({ data, addProduct }) {
 
 ProductCard.propTypes = {
   data: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     urlImage: PropTypes.string,
     name: PropTypes.string,
     price: PropTypes.string,
