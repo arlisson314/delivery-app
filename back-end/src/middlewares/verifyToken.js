@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 require('express-async-errors');
+
 const jwtSecret = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
 
 module.exports = async (req, res, next) => {

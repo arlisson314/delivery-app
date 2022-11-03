@@ -2,9 +2,10 @@ require('dotenv/config');
 const md5 = require('md5');
 const { Op } = require('sequelize');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 const { User } = require('../database/models');
 const buildError = require('../error/errorBuilder');
-const fs = require('fs');
+
 const jwtSecret = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
 
 const login = async ({ email, password }) => {
