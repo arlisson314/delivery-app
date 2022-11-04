@@ -40,10 +40,6 @@ export default function CustomerProducts() {
       orders.push(newProduct);
       setOrders(orders);
     }
-
-    // orders[i] = products[i - 1];
-    // orders[i].qnt = qnt;
-    // orders[i].id = i;
     localStorage.setItem('carrinho', JSON.stringify(orders));
     const value = orders.reduce((acc, cur) => acc + Number(cur.price) * cur.qnt, 0);
     setTotalValue(value.toFixed(2).replace('.', ','));

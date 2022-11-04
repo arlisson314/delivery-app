@@ -42,7 +42,7 @@ export default function Table({ listProducts, setListProducts }) {
               <td
                 data-testid={ `${path}__element-order-table-item-number-${index}` }
               >
-                {(item?.id)}
+                {index + 1}
               </td>
 
               <td
