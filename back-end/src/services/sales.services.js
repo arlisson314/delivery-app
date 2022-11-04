@@ -35,7 +35,14 @@ const getAll = async (userId, role) => {
 };
 
 const getById = async (orderId) => {
-  const result = await Sale.findOne({ where: { id: orderId } });
+  const result = await Sale.findOne({
+    where: { id: orderId },
+    include: [ 
+      { model: SaleProducts, as: 'sales' },
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: User, as: 'seller', attributes: { exclude: ['password'] } },
+    ],
+  });
   if (!result) throw buildError(404, 'Sale not found');
   return result;
 };
