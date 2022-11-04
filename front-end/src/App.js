@@ -18,7 +18,6 @@ function App() {
       <Route path="/customer/orders" element={ <Orders /> } />
       <Route path="/register" element={ <Register /> } />
       <Route path="/customer/products" element={ <CustomerProducts /> } />
-      <Route path="/customer/orders" element={ <Orders /> } />
       <Route exat path="/seller/orders" element={ <SellerOrders /> } />
       <Route path="/seller/orders/:id" />
     </Routes>

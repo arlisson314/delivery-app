@@ -5,37 +5,23 @@ import Table from '../components/table';
 import { getAll } from '../helpers/requests';
 
 export default function CustomerCheckout() {
-  const [listItens, setListItens] = useState([]);
+  const [listProducts, setListProducts] = useState([]);
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
   const [userData, setUserData] = useState('');
 
   useEffect(() => {
-    const itensMock = [
-      {
-        id: '1',
-        descrição: 'Cerveja Stella 250ml',
-        quantidade: '3',
-        valor_unitário: '3,50',
-        sub_total: '10,50',
-      },
-      {
-        id: '2',
-        descrição: 'Cerveja Skol Latão 450ml',
-        quantidade: '4',
-        valor_unitário: '4,10',
-        sub_total: '16,40',
-      },
-    ];
-    setListItens(itensMock);
-
+    if ('carrinho' in localStorage) {
+      const getItens = JSON.parse(localStorage.getItem('carrinho'));
+      const filtredItens = getItens.filter((i) => i !== null);
+      setListProducts(filtredItens);
+    }
     getAll('/users')
       .then((respnose) => setUsers(respnose.filter((user) => user.role === 'seller')))
       .catch((err) => console.error(err));
   }, []);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async () => {
     navigate(`/customer/orders/${1}`);
   };
 
@@ -43,7 +29,7 @@ export default function CustomerCheckout() {
     <div>
       <Header />
       <p>Finalizar Pedido</p>
-      <Table listItens={ listItens } setListItens={ setListItens } />
+      <Table listProducts={ listProducts } setListProducts={ setListProducts } />
       <p>Detalhes e Endereço para Entrega</p>
       <form>
         <label htmlFor="vendedora">

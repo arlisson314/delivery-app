@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export default function Table({ listItens, setListItens }) {
+export default function Table({ listProducts, setListProducts }) {
   const [path, setPath] = useState('');
   const location = useLocation();
 
@@ -12,12 +12,13 @@ export default function Table({ listItens, setListItens }) {
   }, [location.pathname]);
 
   const removeButton = (id) => {
-    const newList = listItens.filter((item) => item.id !== id);
-    setListItens(newList);
+    const newList = listProducts.filter((item) => item?.id !== id);
+    setListProducts(newList);
+    localStorage.carrinho = JSON.stringify(newList.filter((i) => i));
   };
 
-  const totalValue = listItens.reduce((acc, cur) => (
-    acc + Number(cur.sub_total.replace(',', '.'))
+  const totalValue = listProducts.reduce((acc, cur) => (
+    acc + (Number(cur?.price) * Number(cur?.qnt))
   ), 0).toFixed(2).replace('.', ',');
 
   return (
@@ -35,40 +36,38 @@ export default function Table({ listItens, setListItens }) {
         </thead>
 
         <tbody>
-          {listItens.map((item, index) => (
-            <tr key={ item.id }>
+          {listProducts.map((item, index) => (
+            <tr key={ index }>
 
               <td
-                data-testid={ `
-              ${path}__element-order-table-item-number-${index}` }
+                data-testid={ `${path}__element-order-table-item-number-${index}` }
               >
-                {item.id}
+                {(item?.id)}
               </td>
 
               <td
                 data-testid={ `${path}__element-order-table-name-${index}` }
               >
-                {item.descrição}
+                {item?.name}
               </td>
 
               <td
                 data-testid={ `${path}__element-order-table-quantity-${index}` }
               >
-                {item.quantidade}
+                {item?.qnt}
               </td>
 
               <td
-                data-testid={ `
-                ${path}__element-order-table-unit-price-${index}` }
+                data-testid={ `${path}__element-order-table-unit-price-${index}` }
               >
-                {`R$ ${item.valor_unitário}`}
+                {`R$ ${Number(item?.price).toFixed(2).replace('.', ',')}`}
               </td>
 
               <td
-                data-testid={ `
-                ${path}__element-order-table-sub-total-${index}` }
+                data-testid={ `${path}__element-order-table-sub-total-${index}` }
               >
-                {`R$ ${item.sub_total}`}
+                {`R$ ${(Number(item?.price) * Number(item?.qnt)).toFixed(2)
+                  .replace('.', ',')}`}
               </td>
               <td
                 data-testid={ `${path}__element-order-table-remove-${index}` }
@@ -76,7 +75,7 @@ export default function Table({ listItens, setListItens }) {
                 {location.pathname.includes('checkout') && (
                   <button
                     type="button"
-                    onClick={ () => removeButton(item.id) }
+                    onClick={ () => removeButton(item?.id) }
                   >
                     Remover
                   </button>
@@ -104,4 +103,4 @@ Table.propTypes = ({
 // customer_order_details__element-order-table-name-<index>
 
 // customer_order_details__element-order-table-quantity-<index>
-// customer_checkout__element-order-table-quantity-<index></index>
+// customer_checkout__element-order-table-quantity-<index>
