@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Header from '../components/header';
 import Table from '../components/table';
-import { getAll, post } from '../helpers/requests';
+import { getAll } from '../helpers/requests';
 
 export default function CustomerCheckout() {
   const [listProducts, setListProducts] = useState([]);
@@ -31,7 +32,7 @@ export default function CustomerCheckout() {
   }, []);
 
   const totalValue = listProducts.reduce((acc, cur) => (
-    acc + (Number(cur?.price) * Number(cur?.qnt))
+    Number(acc) + (Number(cur?.price) * Number(cur?.qnt))
   ), 0).toFixed(2).replace('.', ',');
 
   const handleSubmit = async () => {
@@ -39,19 +40,18 @@ export default function CustomerCheckout() {
     const newSale = {
       userId,
       sellerId,
-      totalPrice: totalValue,
+      totalPrice: Number.parseFloat(totalValue.replace(',', '.')),
       deliveryAddress,
       deliveryNumber,
       saleDate: new Date().toISOString(),
       status: 'Pendente',
       products,
     };
-    console.log(newSale, userToken);
 
-    await post('/orders', {
-      headers: { Authorization: userToken },
-    }).then((res) => res.data);
-    navigate(`/customer/orders/${1}`);
+    const result = await axios
+      .post('http://localhost:3001/orders', newSale, { headers: { Authorization: userToken } })
+      .then((res) => res.data);
+    navigate(`/customer/orders/${result.id}`);
   };
 
   return (

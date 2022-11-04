@@ -30,7 +30,6 @@ export default function CustomerProducts() {
   const addProduct = (i, qnt) => {
     const findItem = orders.findIndex((item) => item.id === i);
     const number = -1;
-    console.log(findItem);
     if (findItem !== number) {
       orders[findItem].qnt = qnt;
       setOrders(orders);
