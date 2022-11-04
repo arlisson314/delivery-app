@@ -1,51 +1,25 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function Table() {
-  const [listItens, setListItens] = useState([]);
+export default function Table({ listProducts, setListProducts, totalValue }) {
   const [path, setPath] = useState('');
   const location = useLocation();
 
   useEffect(() => {
-    // const itensMock = [
-    //   {
-    //     id: '1',
-    //     descrição: 'Cerveja Stella 250ml',
-    //     quantidade: '3',
-    //     valor_unitário: '3,50',
-    //     sub_total: '10,50',
-    //   },
-    //   {
-    //     id: '2',
-    //     descrição: 'Cerveja Skol Latão 450ml',
-    //     quantidade: '4',
-    //     valor_unitário: '4,10',
-    //     sub_total: '16,40',
-    //   },
-    //   {
-    //     id: '3',
-    //     descrição: 'Salgadinho Torcida Churrasco',
-    //     quantidade: '1',
-    //     valor_unitário: '1,56',
-    //     sub_total: '1,56',
-    //   },
-    // ];
-    // setListItens(itensMock);
     setPath(location.pathname
       .includes('checkout') ? 'customer_checkout' : 'customer_order_details');
   }, [location.pathname]);
 
-  // console.log(path);
-  // console.log(location);
-
   const removeButton = (id) => {
-    const newList = listItens.filter((item) => item.id !== id);
-    setListItens(newList);
+    const newList = listProducts.filter((item) => item?.id !== id);
+    setListProducts(newList);
+    localStorage.carrinho = JSON.stringify(newList.filter((i) => i));
   };
 
-  const totalValue = listItens.reduce((acc, cur) => (
-    acc + Number(cur.sub_total.replace(',', '.'))
-  ), 0).toFixed(2).replace('.', ',');
+  // const totalValue = listProducts.reduce((acc, cur) => (
+  //   acc + (Number(cur?.price) * Number(cur?.qnt))
+  // ), 0).toFixed(2).replace('.', ',');
 
   return (
     <div>
@@ -62,40 +36,38 @@ export default function Table() {
         </thead>
 
         <tbody>
-          {listItens.map((item, index) => (
-            <tr key={ item.id }>
+          {listProducts.map((item, index) => (
+            <tr key={ index }>
 
               <td
-                data-testid={ `
-              ${path}__element-order-table-item-number-${index}` }
+                data-testid={ `${path}__element-order-table-item-number-${index}` }
               >
-                {item.id}
+                {index + 1}
               </td>
 
               <td
                 data-testid={ `${path}__element-order-table-name-${index}` }
               >
-                {item.descrição}
+                {item?.name}
               </td>
 
               <td
                 data-testid={ `${path}__element-order-table-quantity-${index}` }
               >
-                {item.quantidade}
+                {item?.qnt}
               </td>
 
               <td
-                data-testid={ `
-                ${path}__element-order-table-unit-price-${index}` }
+                data-testid={ `${path}__element-order-table-unit-price-${index}` }
               >
-                {`R$ ${item.valor_unitário}`}
+                {`R$ ${Number(item?.price).toFixed(2).replace('.', ',')}`}
               </td>
 
               <td
-                data-testid={ `
-                ${path}__element-order-table-sub-total-${index}` }
+                data-testid={ `${path}__element-order-table-sub-total-${index}` }
               >
-                {`R$ ${item.sub_total}`}
+                {`R$ ${(Number(item?.price) * Number(item?.qnt)).toFixed(2)
+                  .replace('.', ',')}`}
               </td>
               <td
                 data-testid={ `${path}__element-order-table-remove-${index}` }
@@ -103,7 +75,7 @@ export default function Table() {
                 {location.pathname.includes('checkout') && (
                   <button
                     type="button"
-                    onClick={ () => removeButton(item.id) }
+                    onClick={ () => removeButton(item?.id) }
                   >
                     Remover
                   </button>
@@ -122,8 +94,13 @@ export default function Table() {
   );
 }
 
+Table.propTypes = ({
+  listItens: PropTypes.array,
+  setListItens: PropTypes.func,
+}).isRequired;
+
 // customer_checkout__element-order-table-name-<index>
 // customer_order_details__element-order-table-name-<index>
 
 // customer_order_details__element-order-table-quantity-<index>
-// customer_checkout__element-order-table-quantity-<index></index>
+// customer_checkout__element-order-table-quantity-<index>

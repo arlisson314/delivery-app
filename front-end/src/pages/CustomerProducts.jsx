@@ -28,10 +28,17 @@ export default function CustomerProducts() {
   useEffect(() => {}, [totalValue]);
 
   const addProduct = (i, qnt) => {
-    orders[i] = products[i - 1];
-    orders[i].qnt = qnt;
-    orders[i].id = i;
-    setOrders(orders);
+    const findItem = orders.findIndex((item) => item.id === i);
+    const number = -1;
+    if (findItem !== number) {
+      orders[findItem].qnt = qnt;
+      setOrders(orders);
+    } else {
+      const newProduct = products[i - 1];
+      newProduct.qnt = qnt;
+      orders.push(newProduct);
+      setOrders(orders);
+    }
     localStorage.setItem('carrinho', JSON.stringify(orders));
     const value = orders.reduce((acc, cur) => acc + Number(cur.price) * cur.qnt, 0);
     setTotalValue(value.toFixed(2).replace('.', ','));
