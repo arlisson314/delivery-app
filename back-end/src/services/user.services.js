@@ -11,11 +11,14 @@ const jwtSecret = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
 const login = async ({ email, password }) => {
   const user = await User.findOne({ where: { email } });
   if (!user) throw buildError(404, 'Not found');
-  
+
   const validatePass = md5(password) === user.password;
   if (!validatePass) throw buildError(404, 'Not found');
-  
-  const token = jwt.sign({ data: user }, jwtSecret, { expiresIn: '7d', algorithm: 'HS256' });
+
+  const token = jwt.sign({ data: user }, jwtSecret, {
+    expiresIn: '7d',
+    algorithm: 'HS256',
+  });
   delete user.dataValues.password;
   user.dataValues.token = token;
   return user.dataValues;
@@ -29,8 +32,9 @@ const createUser = async ({ name, email, password }) => {
   if (user) throw buildError(409, 'Conflict');
 
   const hashPass = md5(password);
-  const newUser = await User.create({ name, email, password: hashPass, role: 'customer' });
+  await User.create({ name, email, password: hashPass, role: 'customer' });
 
+  const newUser = login({ email, password });
   return newUser;
 };
 

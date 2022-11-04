@@ -33,7 +33,9 @@ export default function Register() {
     event.preventDefault();
 
     try {
-      await post('/register', { email, password, name });
+      const result = await post('/register', { email, password, name });
+
+      localStorage.setItem('user', JSON.stringify(result));
 
       navigate('/customer/products');
     } catch ({ response }) {

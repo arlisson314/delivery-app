@@ -7,9 +7,6 @@ export default function Header() {
 
   useEffect(() => {
     const userInfos = JSON.parse(localStorage.getItem('user'));
-    if (!userInfos) {
-      navigate('/login');
-    }
     setUser(userInfos);
   }, [navigate]);
 
