@@ -2,13 +2,17 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/header';
 import Table from '../components/table';
-import { getAll } from '../helpers/requests';
+import { getAll, post } from '../helpers/requests';
 
 export default function CustomerCheckout() {
   const [listProducts, setListProducts] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [sellers, setSellers] = useState([]);
   const navigate = useNavigate();
-  const [userData, setUserData] = useState('');
+  const [sellerId, setSellerId] = useState(2);
+  const [userId, setUserId] = useState('');
+  const [userToken, setUserToken] = useState('');
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [deliveryNumber, setDeliveryNumber] = useState('');
 
   useEffect(() => {
     if ('carrinho' in localStorage) {
@@ -16,12 +20,37 @@ export default function CustomerCheckout() {
       const filtredItens = getItens.filter((i) => i !== null);
       setListProducts(filtredItens);
     }
+
+    const { id, token } = JSON.parse(localStorage.getItem('user'));
+    setUserId(id);
+    setUserToken(token);
+
     getAll('/users')
-      .then((respnose) => setUsers(respnose.filter((user) => user.role === 'seller')))
+      .then((response) => setSellers(response.filter((user) => user.role === 'seller')))
       .catch((err) => console.error(err));
   }, []);
 
+  const totalValue = listProducts.reduce((acc, cur) => (
+    acc + (Number(cur?.price) * Number(cur?.qnt))
+  ), 0).toFixed(2).replace('.', ',');
+
   const handleSubmit = async () => {
+    const products = listProducts.map((item) => ({ id: item.id, quantity: item.qnt }));
+    const newSale = {
+      userId,
+      sellerId,
+      totalPrice: totalValue,
+      deliveryAddress,
+      deliveryNumber,
+      saleDate: new Date().toISOString(),
+      status: 'Pendente',
+      products,
+    };
+    console.log(newSale, userToken);
+
+    await post('/orders', {
+      headers: { Authorization: userToken },
+    }).then((res) => res.data);
     navigate(`/customer/orders/${1}`);
   };
 
@@ -29,7 +58,11 @@ export default function CustomerCheckout() {
     <div>
       <Header />
       <p>Finalizar Pedido</p>
-      <Table listProducts={ listProducts } setListProducts={ setListProducts } />
+      <Table
+        listProducts={ listProducts }
+        setListProducts={ setListProducts }
+        totalValue={ totalValue }
+      />
       <p>Detalhes e Endereço para Entrega</p>
       <form>
         <label htmlFor="vendedora">
@@ -38,10 +71,10 @@ export default function CustomerCheckout() {
             id="vendedora"
             name="vendedora"
             data-testid="customer_checkout__select-seller"
-            value={ userData }
-            onChange={ ({ target: { value } }) => setUserData(value) }
+            value={ sellerId }
+            onChange={ ({ target: { value } }) => setSellerId(value) }
           >
-            {users?.map(({ id, name }) => (
+            {sellers?.map(({ id, name }) => (
               <option
                 key={ id }
                 value={ id }
@@ -58,16 +91,18 @@ export default function CustomerCheckout() {
             id="endereco"
             name="endereco"
             data-testid="customer_checkout__input-address"
+            onChange={ ({ target: { value } }) => setDeliveryAddress(value) }
           />
         </label>
 
-        <label htmlFor="endereço">
+        <label htmlFor="numero">
           Número
           <input
-            type="text"
-            name="endereço"
-            id="endereço"
+            type="number"
+            name="numero"
+            id="numero"
             data-testid="customer_checkout__input-address-number"
+            onChange={ ({ target: { value } }) => setDeliveryNumber(value) }
           />
         </label>
 

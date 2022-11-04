@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export default function Table({ listProducts, setListProducts }) {
+export default function Table({ listProducts, setListProducts, totalValue }) {
   const [path, setPath] = useState('');
   const location = useLocation();
 
@@ -17,9 +17,9 @@ export default function Table({ listProducts, setListProducts }) {
     localStorage.carrinho = JSON.stringify(newList.filter((i) => i));
   };
 
-  const totalValue = listProducts.reduce((acc, cur) => (
-    acc + (Number(cur?.price) * Number(cur?.qnt))
-  ), 0).toFixed(2).replace('.', ',');
+  // const totalValue = listProducts.reduce((acc, cur) => (
+  //   acc + (Number(cur?.price) * Number(cur?.qnt))
+  // ), 0).toFixed(2).replace('.', ',');
 
   return (
     <div>
