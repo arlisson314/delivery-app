@@ -22,6 +22,11 @@ module.exports = {
       quantity: 3,
     },
     {
+      sale_id: 4,
+      product_id: 9,
+      quantity: 3,
+    },
+    {
       sale_id: 5,
       product_id: 8,
       quantity: 5,

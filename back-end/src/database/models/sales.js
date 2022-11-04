@@ -22,13 +22,18 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Sale.associate = (models) => {
-    Sale.belongsTo(models.User,
-      { foreignKey: 'userId', as: 'user' }, { foreignKey: 'sellerId', as: 'seller' } );
-  };
-  Sale.associate = (models) => {
     Sale.hasMany(models.SaleProducts,
       { foreignKey: 'saleId', as: 'sales' });
-  };
+    Sale.belongsTo(models.User,
+      { foreignKey: 'sellerId', as: 'seller' });
+    Sale.belongsTo(models.User,
+      { foreignKey: 'userId', as: 'user' });
+    };
+  // Sale.associate = (models) => {
+  //   Sale.belongsTo(models.User,
+  //     // { foreignKey: 'userId', as: 'user' }, 
+  //     { foreignKey: 'sellerId', as: 'seller' } );
+  // };
 
   return Sale;
 };
