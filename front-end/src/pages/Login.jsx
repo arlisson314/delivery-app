@@ -28,6 +28,14 @@ export default function Login() {
     }
   };
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (user?.role === 'seller') return navigate('/seller/orders');
+    if (user?.role === 'admin') return navigate('/admin/manage');
+    if (user?.role === 'customer') return navigate('/customer/products');
+  }, [navigate]);
+
   return (
     <div>
       <h1>Login</h1>
