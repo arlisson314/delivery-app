@@ -22,7 +22,7 @@ function App() {
       <Route path="/customer/orders" element={ <CustomerOrders /> } />
       <Route path="/register" element={ <Register /> } />
       <Route path="/customer/products" element={ <CustomerProducts /> } />
-      <Route exat path="/seller/orders" element={ <SellerOrders /> } />
+      <Route exact path="/seller/orders" element={ <SellerOrders /> } />
       <Route path="/seller/orders/:id" element={ <SellerOrdersDetails /> } />
     </Routes>
   );

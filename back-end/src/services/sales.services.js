@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const { Sale } = require('../database/models');
 const { User } = require('../database/models');
-const { SaleProducts } = require('../database/models');
+const { SaleProducts, Product } = require("../database/models");
 const buildError = require('../error/errorBuilder');
 const config = require('../database/config/config');
 
@@ -30,10 +30,16 @@ const getAll = async (userId, role) => {
 const getById = async (orderId) => {
   const result = await Sale.findOne({
     where: { id: orderId },
-    include: [ 
-      { model: SaleProducts, as: 'sales' },
-      { model: User, as: 'user', attributes: { exclude: ['password'] } },
-      { model: User, as: 'seller', attributes: { exclude: ['password'] } },
+    include: [
+      { model: SaleProducts, as: "sales" },
+      { model: User, as: "user", attributes: { exclude: ["password"] } },
+      { model: User, as: "seller", attributes: { exclude: ["password"] } },
+      {
+        model: Product,
+        as: "products",
+        attributes: { exclude: ["urlImage"] },
+        through: { attributes: ["quantity"] },
+      },
     ],
   });
   if (!result) throw buildError(404, 'Sale not found');
