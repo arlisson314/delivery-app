@@ -42,4 +42,11 @@ const create = async (newSale) => {
   return createdSale;
 };
 
+const update = async ({ status }, id) => {
+  if (!status) throw buildError(400, 'Some required fields are missing');
+
+  await Sale.update({ status }, { where: { id } });
+  const updatedSale = await Sale.findByPk(id);
+};
+
 module.exports = { getAll, getById, create };
