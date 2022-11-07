@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const { Sale } = require('../database/models');
 const { User } = require('../database/models');
-const { SaleProducts, Product } = require("../database/models");
+const { SaleProducts, Product } = require('../database/models');
 const buildError = require('../error/errorBuilder');
 const config = require('../database/config/config');
 
@@ -31,14 +31,14 @@ const getById = async (orderId) => {
   const result = await Sale.findOne({
     where: { id: orderId },
     include: [
-      { model: SaleProducts, as: "sales" },
-      { model: User, as: "user", attributes: { exclude: ["password"] } },
-      { model: User, as: "seller", attributes: { exclude: ["password"] } },
+      { model: SaleProducts, as: 'sales' },
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: User, as: 'seller', attributes: { exclude: ['password'] } },
       {
         model: Product,
-        as: "products",
-        attributes: { exclude: ["urlImage"] },
-        through: { attributes: ["quantity"] },
+        as: 'products',
+        attributes: { exclude: ['urlImage'] },
+        through: { attributes: ['quantity'] },
       },
     ],
   });
