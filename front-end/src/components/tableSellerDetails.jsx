@@ -33,7 +33,7 @@ export default function TableSellerDetails({ orders }) {
             <td
               data-testid={ `${PAGE_NAME}element-order-table-unit-price-${index}` }
             >
-              {order.price.replace('.', ',')}
+              {convertNumber(order.price)}
             </td>
 
             <td
