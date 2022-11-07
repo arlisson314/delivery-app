@@ -7,6 +7,6 @@ const salesRouter = Router();
 salesRouter.get('/orders', verifyToken, salesController.getAll);
 salesRouter.get('/orders/:id', verifyToken, salesController.getById);
 salesRouter.post('/orders', verifyToken, salesController.create);
-salesRouter.put('/orders', verifyToken, salesController.update);
+salesRouter.put('/orders/:id', verifyToken, salesController.update);
 
 module.exports = salesRouter;
