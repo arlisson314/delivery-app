@@ -13,7 +13,7 @@ export default function Header() {
   return (
     <nav>
       <button
-        type="submit"
+        type="button"
         data-testid="customer_products__element-navbar-link-products"
         onClick={ () => navigate('/customer/products') }
       >
@@ -21,9 +21,9 @@ export default function Header() {
       </button>
 
       <button
-        type="submit"
+        type="button"
         data-testid="customer_products__element-navbar-link-orders"
-        onClick={ () => navigate('/customer/checkout') }
+        onClick={ () => navigate('/customer/orders') }
       >
         MEUS PEDIDOS
       </button>
@@ -36,8 +36,8 @@ export default function Header() {
         data-testid="customer_products__element-navbar-link-logout"
         type="submit"
         onClick={ () => {
+          localStorage.clear();
           navigate('/login');
-          localStorage.removeItem('user');
         } }
       >
         SAIR

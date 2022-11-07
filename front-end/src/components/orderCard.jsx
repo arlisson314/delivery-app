@@ -18,7 +18,7 @@ export default function OrdersCard({ order }) {
 
         <div>
           <h3 data-testid={ `customer_orders__element-order-date-${order.id}` }>
-            {moment(order.saleDate).format('DD/MM/YYYY')}
+            {moment(order.saleDate).format('MM/DD/YYYY')}
           </h3>
 
           <h3 data-testid={ `customer_orders__element-card-price-${order.id}` }>
