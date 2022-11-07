@@ -64,4 +64,18 @@ const create = async (newSale) => {
   return createdSale;
 };
 
-module.exports = { getAll, getById, create };
+const update = async (status, id) => {
+  if (!status) throw buildError(400, 'Some required fields are missing');
+
+  await Sale.update({ status }, { where: { id } });
+  const updatedSale = await Sale.findByPk(id, {
+    include: [ 
+      { model: SaleProducts, as: 'sales' },
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: User, as: 'seller', attributes: { exclude: ['password'] } },
+    ],
+  });
+  return updatedSale;
+};
+
+module.exports = { getAll, getById, create, update };
