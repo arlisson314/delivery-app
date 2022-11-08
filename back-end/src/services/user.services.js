@@ -24,7 +24,7 @@ const login = async ({ email, password }) => {
   return user.dataValues;
 };
 
-const createUser = async ({ name, email, password }) => {
+const createUser = async ({ name, email, password, role = 'customer' }) => {
   const user = await User.findOne({
     where: { [Op.or]: [{ name }, { email }] },
   });
@@ -32,7 +32,7 @@ const createUser = async ({ name, email, password }) => {
   if (user) throw buildError(409, 'Conflict');
 
   const hashPass = md5(password);
-  await User.create({ name, email, password: hashPass, role: 'customer' });
+  await User.create({ name, email, password: hashPass, role });
 
   const newUser = login({ email, password });
   return newUser;

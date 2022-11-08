@@ -12,32 +12,33 @@ export default function Header() {
 
   return (
     <nav>
-      <button
-        type="submit"
-        data-testid="customer_products__element-navbar-link-products"
-        onClick={ () => navigate('/customer/products') }
-      >
-        PRODUTOS
-      </button>
+      { user?.role === 'customer' && (
+        <button
+          type="button"
+          data-testid="customer_products__element-navbar-link-products"
+          onClick={ () => navigate('/customer/products') }
+        >
+          PRODUTOS
+        </button>)}
 
       <button
-        type="submit"
+        type="button"
         data-testid="customer_products__element-navbar-link-orders"
-        onClick={ () => navigate('/customer/checkout') }
+        onClick={ () => (user?.role === 'customer'
+          ? navigate('/customer/orders') : navigate('/seller/orders')) }
       >
-        MEUS PEDIDOS
+        { user?.role === 'customer' ? 'MEUS PEDIDOS' : 'PEDIDOS' }
       </button>
-
-      <p data-testid="customer_products__element-navbar-user-full-name">
+      <span data-testid="customer_products__element-navbar-user-full-name">
         {user?.name}
-      </p>
+      </span>
 
       <button
         data-testid="customer_products__element-navbar-link-logout"
         type="submit"
         onClick={ () => {
+          localStorage.clear();
           navigate('/login');
-          localStorage.removeItem('user');
         } }
       >
         SAIR

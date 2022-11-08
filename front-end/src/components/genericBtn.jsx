@@ -1,6 +1,6 @@
 import PropTrypes from 'prop-types';
 
-export default function genericBtn({ type, name, dataTestId, onClick, disabled }) {
+export default function GenericBtn({ type, name, dataTestId, onClick, disabled }) {
   return (
     <button
       type={ type === 'submit' ? 'submit' : 'button' }
@@ -14,9 +14,10 @@ export default function genericBtn({ type, name, dataTestId, onClick, disabled }
   );
 }
 
-genericBtn.propTypes = {
+GenericBtn.propTypes = {
   type: PropTrypes.string.isRequired,
   name: PropTrypes.string.isRequired,
   dataTestId: PropTrypes.string.isRequired,
   onClick: PropTrypes.func.isRequired,
+  disabled: PropTrypes.bool.isRequired,
 };

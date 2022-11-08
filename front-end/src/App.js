@@ -4,9 +4,10 @@ import Login from './pages/Login';
 import CustomerCheckout from './pages/CustomerCheckout';
 import Register from './pages/Register';
 import CustomerProducts from './pages/CustomerProducts';
-import Orders from './pages/Orders';
-import CustomerOrders from './pages/CustomerOrders';
+import CustomerOrders from './pages/Orders';
+import CustomerOrdersDetails from './pages/CustomerOrders';
 import SellerOrders from './pages/SellerOrders';
+import SellerOrdersDetails from './pages/SellerOdersDetails';
 
 function App() {
   return (
@@ -14,12 +15,15 @@ function App() {
       <Route exact path="/" element={ <Navigate to="/login" /> } />
       <Route path="/login" element={ <Login /> } />
       <Route path="/customer/checkout" element={ <CustomerCheckout /> } />
-      <Route path="/customer/orders/:idVenda" element={ <CustomerOrders /> } />
-      <Route path="/customer/orders" element={ <Orders /> } />
+      <Route
+        path="/customer/orders/:idVenda"
+        element={ <CustomerOrdersDetails /> }
+      />
+      <Route path="/customer/orders" element={ <CustomerOrders /> } />
       <Route path="/register" element={ <Register /> } />
       <Route path="/customer/products" element={ <CustomerProducts /> } />
-      <Route exat path="/seller/orders" element={ <SellerOrders /> } />
-      <Route path="/seller/orders/:id" />
+      <Route exact path="/seller/orders" element={ <SellerOrders /> } />
+      <Route path="/seller/orders/:id" element={ <SellerOrdersDetails /> } />
     </Routes>
   );
 }
