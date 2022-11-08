@@ -12,20 +12,22 @@ export default function Header() {
 
   return (
     <nav>
-      <button
-        type="button"
-        data-testid="customer_products__element-navbar-link-products"
-        onClick={ () => navigate('/customer/products') }
-      >
-        PRODUTOS
-      </button>
+      { user?.role === 'customer' && (
+        <button
+          type="button"
+          data-testid="customer_products__element-navbar-link-products"
+          onClick={ () => navigate('/customer/products') }
+        >
+          PRODUTOS
+        </button>)}
 
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-orders"
-        onClick={ () => navigate('/customer/orders') }
+        onClick={ () => (user?.role === 'customer'
+          ? navigate('/customer/orders') : navigate('/seller/orders')) }
       >
-        MEUS PEDIDOS
+        { user?.role === 'customer' ? 'MEUS PEDIDOS' : 'PEDIDOS' }
       </button>
 
       <p data-testid="customer_products__element-navbar-user-full-name">

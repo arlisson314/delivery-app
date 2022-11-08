@@ -5,6 +5,7 @@ import GenericBtn from '../components/genericBtn';
 import TableSellerDetails from '../components/tableSellerDetails';
 import { get, put } from '../helpers/requests';
 import convertNumber from '../helpers/convertNumber';
+import Header from '../components/header';
 
 export default function SellerOrdersDetails() {
   const PAGE_NAME = 'seller_order_details__';
@@ -33,12 +34,13 @@ export default function SellerOrdersDetails() {
 
   return (
     <div>
+      <Header />
       <h2>Detalhe do Pedido</h2>
       <div style={ { display: 'flex', gap: '10px' } }>
         <p data-testid={ `${PAGE_NAME}element-order-details-label-order-id` }>
           {`Pedido 000${order.id}`}
         </p>
-        <p data-testid={ `${PAGE_NAME}element-order-details-label-seller-date` }>
+        <p data-testid={ `${PAGE_NAME}element-order-details-label-order-date` }>
           {momment(order.saleDate).format('MM/DD/YYYY')}
         </p>
         <p
@@ -66,7 +68,7 @@ export default function SellerOrdersDetails() {
 
       <TableSellerDetails orders={ products } />
 
-      <h1 data-testid={ `${PAGE_NAME}element-order-total-value` }>
+      <h1 data-testid={ `${PAGE_NAME}element-order-total-price` }>
         {`Total: ${convertNumber(order.totalPrice)}`}
       </h1>
     </div>
