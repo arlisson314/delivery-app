@@ -29,9 +29,9 @@ export default function Header() {
       >
         { user?.role === 'customer' ? 'MEUS PEDIDOS' : 'PEDIDOS' }
       </button>
-        <span data-testid="customer_products__element-navbar-user-full-name">
-          {user?.name}
-        </span>
+      <span data-testid="customer_products__element-navbar-user-full-name">
+        {user?.name}
+      </span>
 
       <button
         data-testid="customer_products__element-navbar-link-logout"
