@@ -13,28 +13,22 @@ export default function SellerOrder({ data, handleNavigate }) {
       <span data-testid={ `seller_orders__element-order-id-${id}` }>
         Pedido
         <br />
-        { id }
+        {id}
       </span>
       <span>
-        <span
-          data-testid={ `seller_orders__element-delivery-status-${id}` }
-        >
-          { status }
+        <span data-testid={ `seller_orders__element-delivery-status-${id}` }>
+          {status}
         </span>
-        <span
-          data-testid={ `seller_orders__element-order-date-${id}` }
-        >
-          { saleDate }
+        <span data-testid={ `seller_orders__element-order-date-${id}` }>
+          {saleDate}
         </span>
         <span>
           R$
           <span data-testid={ `seller_orders__element-card-price-${id}` }>
-            { totalPrice }
+            {totalPrice}
           </span>
         </span>
-        <div
-          data-testid={ `seller_orders__element-card-address-${id}` }
-        >
+        <div data-testid={ `seller_orders__element-card-address-${id}` }>
           {deliveryAddress}
           ,
           {deliveryNumber}
@@ -49,7 +43,7 @@ SellerOrder.propTypes = {
     id: PropTypes.number,
     status: PropTypes.string,
     saleDate: PropTypes.string,
-    totalPrice: PropTypes.number,
+    totalPrice: PropTypes.string,
     deliveryAddress: PropTypes.string,
     deliveryNumber: PropTypes.string,
   }).isRequired,

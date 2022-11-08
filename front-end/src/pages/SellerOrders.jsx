@@ -22,7 +22,7 @@ export default function SellerOrders() {
   }, [orders, userInfos]);
 
   const handleNavigate = (index) => {
-    navigate(`/orders/${index}`);
+    navigate(`/seller/orders/${index}`);
   };
 
   return (
