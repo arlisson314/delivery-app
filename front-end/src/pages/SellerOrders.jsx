@@ -12,12 +12,14 @@ export default function SellerOrders() {
   useEffect(() => {
     const fetchOrders = async () => {
       const fetchItems = await axios
-        .get('http://localhost:3001/seller/orders', { headers: { Authorization: userInfos.token } })
-        .then((res) => res.data).catch((err) => console.log(err));
-      setOrders(fetchItems || mockOrders);
+        .get('http://localhost:3001/orders', {
+          headers: { Authorization: userInfos.token },
+          params: { userId: userInfos.id, role: userInfos.role },
+        }).then((res) => res.data).catch((err) => console.log(err));
+      setOrders(fetchItems);
     };
     fetchOrders();
-  }, [orders, userInfos.token]);
+  }, [orders, userInfos]);
 
   const handleNavigate = (index) => {
     navigate(`/seller/orders/${index}`);

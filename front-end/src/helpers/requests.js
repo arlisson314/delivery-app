@@ -21,4 +21,11 @@ export const get = async (endpoint, body) => {
   return data;
 };
 
+export const put = async (endpoint, body, token) => {
+  const { data } = await instace.put(endpoint, body, {
+    headers: { Authorization: token },
+  });
+  return data;
+};
+
 export default instace;

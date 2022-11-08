@@ -9,9 +9,7 @@ import App from './App';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      {/* <Provider> */}
       <App />
-      {/* </Provider> */}
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root'),

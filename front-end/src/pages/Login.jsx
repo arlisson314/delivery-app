@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { post } from '../helpers/requests';
 
@@ -15,18 +15,30 @@ export default function Login() {
     setDisabled(!(password.length >= MIN_DIG && email.match(regex)));
   }, [email, password]);
 
+  const verifyUser = useCallback(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (user?.role === 'seller') return navigate('/seller/orders');
+    if (user?.role === 'adminitrator') return navigate('/admin/manage');
+    if (user?.role === 'customer') return navigate('/customer/products');
+  }, [navigate]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const result = await post('/login', { email, password });
       localStorage.setItem('user', JSON.stringify(result));
-      navigate('/customer/products');
+      verifyUser();
     } catch ({ response }) {
       const { status, data } = response;
       setErrorMessage(`${status} - ${data.message}`);
     }
   };
+
+  useEffect(() => {
+    verifyUser();
+  }, [verifyUser]);
 
   return (
     <div>

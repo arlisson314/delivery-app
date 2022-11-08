@@ -7,8 +7,11 @@ export default function Table({ listProducts, setListProducts, totalValue }) {
   const location = useLocation();
 
   useEffect(() => {
-    setPath(location.pathname
-      .includes('checkout') ? 'customer_checkout' : 'customer_order_details');
+    setPath(
+      location.pathname.includes('checkout')
+        ? 'customer_checkout'
+        : 'customer_order_details',
+    );
   }, [location.pathname]);
 
   const removeButton = (id) => {
@@ -35,16 +38,13 @@ export default function Table({ listProducts, setListProducts, totalValue }) {
         <tbody>
           {listProducts.map((item, index) => (
             <tr key={ index }>
-
               <td
                 data-testid={ `${path}__element-order-table-item-number-${index}` }
               >
                 {index + 1}
               </td>
 
-              <td
-                data-testid={ `${path}__element-order-table-name-${index}` }
-              >
+              <td data-testid={ `${path}__element-order-table-name-${index}` }>
                 {item?.name}
               </td>
 
@@ -63,17 +63,13 @@ export default function Table({ listProducts, setListProducts, totalValue }) {
               <td
                 data-testid={ `${path}__element-order-table-sub-total-${index}` }
               >
-                {`R$ ${(Number(item?.price) * Number(item?.qnt)).toFixed(2)
+                {`R$ ${(Number(item?.price) * Number(item?.qnt))
+                  .toFixed(2)
                   .replace('.', ',')}`}
               </td>
-              <td
-                data-testid={ `${path}__element-order-table-remove-${index}` }
-              >
+              <td data-testid={ `${path}__element-order-table-remove-${index}` }>
                 {location.pathname.includes('checkout') && (
-                  <button
-                    type="button"
-                    onClick={ () => removeButton(item?.id) }
-                  >
+                  <button type="button" onClick={ () => removeButton(item?.id) }>
                     Remover
                   </button>
                 )}
@@ -82,19 +78,17 @@ export default function Table({ listProducts, setListProducts, totalValue }) {
           ))}
         </tbody>
       </table>
-      <h3
-        data-testid={ `${path}__element-order-total-price` }
-      >
-        { `Total: R$ ${totalValue}`}
+      <h3 data-testid={ `${path}__element-order-total-price` }>
+        {`Total: R$ ${totalValue}`}
       </h3>
     </div>
   );
 }
 
-Table.propTypes = ({
+Table.propTypes = {
   listItens: PropTypes.array,
   setListItens: PropTypes.func,
-}).isRequired;
+}.isRequired;
 
 // customer_checkout__element-order-table-name-<index>
 // customer_order_details__element-order-table-name-<index>
