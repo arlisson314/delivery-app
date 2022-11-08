@@ -17,10 +17,6 @@ export default function Table({ listProducts, setListProducts, totalValue }) {
     localStorage.carrinho = JSON.stringify(newList.filter((i) => i));
   };
 
-  // const totalValue = listProducts.reduce((acc, cur) => (
-  //   acc + (Number(cur?.price) * Number(cur?.qnt))
-  // ), 0).toFixed(2).replace('.', ',');
-
   return (
     <div>
       <table>
@@ -31,7 +27,8 @@ export default function Table({ listProducts, setListProducts, totalValue }) {
             <th>Quantidade</th>
             <th>Valor Unitário</th>
             <th>Sub-total</th>
-            <th>Remover Item</th>
+            {location.pathname.includes('checkout') && (
+              <th>Remover Item</th>)}
           </tr>
         </thead>
 

@@ -11,37 +11,40 @@ export default function Header() {
   }, [navigate]);
 
   return (
-    <nav>
-      <button
-        type="submit"
-        data-testid="customer_products__element-navbar-link-products"
-        onClick={ () => navigate('/customer/products') }
-      >
-        PRODUTOS
-      </button>
+    <>
+      <nav>
+        <button
+          type="submit"
+          data-testid="customer_products__element-navbar-link-products"
+          onClick={ () => navigate('/customer/products') }
+        >
+          PRODUTOS
+        </button>
 
-      <button
-        type="submit"
-        data-testid="customer_products__element-navbar-link-orders"
-        onClick={ () => navigate('/customer/checkout') }
-      >
-        MEUS PEDIDOS
-      </button>
+        <button
+          type="submit"
+          data-testid="customer_products__element-navbar-link-orders"
+          onClick={ () => navigate('/customer/checkout') }
+        >
+          MEUS PEDIDOS
+        </button>
 
-      <p data-testid="customer_products__element-navbar-user-full-name">
-        {user?.name}
-      </p>
+        <span data-testid="customer_products__element-navbar-user-full-name">
+          {user?.name}
+        </span>
 
-      <button
-        data-testid="customer_products__element-navbar-link-logout"
-        type="submit"
-        onClick={ () => {
-          navigate('/login');
-          localStorage.removeItem('user');
-        } }
-      >
-        SAIR
-      </button>
-    </nav>
+        <button
+          data-testid="customer_products__element-navbar-link-logout"
+          type="submit"
+          onClick={ () => {
+            navigate('/login');
+            localStorage.removeItem('user');
+          } }
+        >
+          SAIR
+        </button>
+      </nav>
+      <br />
+    </>
   );
 }
