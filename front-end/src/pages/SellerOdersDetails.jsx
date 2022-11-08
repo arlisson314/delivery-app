@@ -29,7 +29,7 @@ export default function SellerOrdersDetails() {
 
   const handleStatus = async (status) => {
     await put(`orders/${id}`, { status }, user.token);
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (
