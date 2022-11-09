@@ -19,7 +19,7 @@ export default function Login() {
     const user = JSON.parse(localStorage.getItem('user'));
 
     if (user?.role === 'seller') return navigate('/seller/orders');
-    if (user?.role === 'adminitrator') return navigate('/admin/manage');
+    if (user?.role === 'administrator') return navigate('/admin/manage');
     if (user?.role === 'customer') return navigate('/customer/products');
   }, [navigate]);
 

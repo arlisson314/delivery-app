@@ -38,7 +38,8 @@ export default function Register() {
       localStorage.setItem('user', JSON.stringify(result));
 
       navigate('/customer/products');
-    } catch ({ response }) {
+    } catch (error) {
+      console.log(error);
       const { status, data } = response;
       setErrorMessage(`${status} - ${data.message}`);
     }
