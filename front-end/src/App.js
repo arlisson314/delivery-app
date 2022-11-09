@@ -8,6 +8,7 @@ import CustomerOrders from './pages/Orders';
 import CustomerOrdersDetails from './pages/CustomerOrders';
 import SellerOrders from './pages/SellerOrders';
 import SellerOrdersDetails from './pages/SellerOdersDetails';
+import Admin from './pages/Admin';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/customer/products" element={ <CustomerProducts /> } />
       <Route exact path="/seller/orders" element={ <SellerOrders /> } />
       <Route path="/seller/orders/:id" element={ <SellerOrdersDetails /> } />
+      <Route path="/admin/manage" element={ <Admin /> } />
     </Routes>
   );
 }
