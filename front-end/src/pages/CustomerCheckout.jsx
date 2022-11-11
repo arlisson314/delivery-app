@@ -4,6 +4,7 @@ import axios from 'axios';
 import Header from '../components/header';
 import Table from '../components/table';
 import { getAll } from '../helpers/requests';
+import Loading from '../components/loadin';
 
 export default function CustomerCheckout() {
   const [listProducts, setListProducts] = useState([]);
@@ -14,6 +15,7 @@ export default function CustomerCheckout() {
   const [userToken, setUserToken] = useState('');
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if ('carrinho' in localStorage) {
@@ -37,6 +39,7 @@ export default function CustomerCheckout() {
 
   const handleSubmit = async () => {
     const products = listProducts.map((item) => ({ id: item.id, quantity: item.qnt }));
+    const TIME = 1500;
     const newSale = {
       userId,
       sellerId,
@@ -51,69 +54,78 @@ export default function CustomerCheckout() {
     const result = await axios
       .post('http://localhost:3001/orders', newSale, { headers: { Authorization: userToken } })
       .then((res) => res.data);
-    navigate(`/customer/orders/${result.id}`);
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      navigate(`/customer/orders/${result.id}`);
+    }, TIME);
   };
 
   return (
     <div>
-      <Header />
-      <p>Finalizar Pedido</p>
-      <Table
-        listProducts={ listProducts }
-        setListProducts={ setListProducts }
-        totalValue={ totalValue }
-      />
-      <p>Detalhes e Endereço para Entrega</p>
-      <form>
-        <label htmlFor="vendedora">
-          P. Vendedora Responsável:
-          <select
-            id="vendedora"
-            name="vendedora"
-            data-testid="customer_checkout__select-seller"
-            value={ sellerId }
-            onChange={ ({ target: { value } }) => setSellerId(value) }
-          >
-            {sellers?.map(({ id, name }) => (
-              <option
-                key={ id }
-                value={ id }
+      {(!loading) && (
+        <>
+          <Header />
+          <p>Finalizar Pedido</p>
+          <Table
+            listProducts={ listProducts }
+            setListProducts={ setListProducts }
+            totalValue={ totalValue }
+          />
+          <p>Detalhes e Endereço para Entrega</p>
+          <form>
+            <label htmlFor="vendedora">
+              P. Vendedora Responsável:
+              <select
+                id="vendedora"
+                name="vendedora"
+                data-testid="customer_checkout__select-seller"
+                value={ sellerId }
+                onChange={ ({ target: { value } }) => setSellerId(value) }
               >
-                {name}
-              </option>))}
-          </select>
-        </label>
+                {sellers?.map(({ id, name }) => (
+                  <option
+                    key={ id }
+                    value={ id }
+                  >
+                    {name}
+                  </option>))}
+              </select>
+            </label>
 
-        <label htmlFor="endereco">
-          Endereço
-          <input
-            type="text"
-            id="endereco"
-            name="endereco"
-            data-testid="customer_checkout__input-address"
-            onChange={ ({ target: { value } }) => setDeliveryAddress(value) }
-          />
-        </label>
+            <label htmlFor="endereco">
+              Endereço
+              <input
+                type="text"
+                id="endereco"
+                name="endereco"
+                data-testid="customer_checkout__input-address"
+                onChange={ ({ target: { value } }) => setDeliveryAddress(value) }
+              />
+            </label>
 
-        <label htmlFor="numero">
-          Número
-          <input
-            type="number"
-            name="numero"
-            id="numero"
-            data-testid="customer_checkout__input-address-number"
-            onChange={ ({ target: { value } }) => setDeliveryNumber(value) }
-          />
-        </label>
+            <label htmlFor="numero">
+              Número
+              <input
+                type="number"
+                name="numero"
+                id="numero"
+                data-testid="customer_checkout__input-address-number"
+                onChange={ ({ target: { value } }) => setDeliveryNumber(value) }
+              />
+            </label>
 
-        <button
-          type="button"
-          data-testid="customer_checkout__button-submit-order"
-          onClick={ handleSubmit }
-        >
-          FINALIZAR PEDIDO
-        </button>
-      </form>
+            <button
+              type="button"
+              data-testid="customer_checkout__button-submit-order"
+              onClick={ handleSubmit }
+            >
+              FINALIZAR PEDIDO
+            </button>
+          </form>
+        </>
+      )}
+      {loading && (<Loading />)}
     </div>
   );
 }
