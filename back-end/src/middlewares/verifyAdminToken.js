@@ -6,7 +6,7 @@ const jwtSecret = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
 
 module.exports = async (req, res, next) => {
   const { authorization: token, role } = req.headers;
-  if (!role || role !== 'administrator') return res.status(401).json({ message: 'Unauthorized' });
+  if (!role || role !== 'administrator') return res.status(401).json({ message: 'Unauthorize' });
   if (!token) {
     return res.status(401).json({ message: 'Token not found' });
   }
